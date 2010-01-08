@@ -76,6 +76,68 @@
               (fn [] (str (last-name) (city-suffix)))
               ])))
 
+(defgenerator street-suffix
+  (s/split "Alley Avenue Branch Bridge Brook Brooks Burg Burgs Bypass Camp Canyon Cape Causeway Center Centers Circle Circles Cliff Cliffs Club Common Corner Corners Course Court Courts Cove Coves Creek Crescent Crest Crossing Crossroad Curve Dale Dam Divide Drive Drive Drives Estate Estates Expressway Extension Extensions Fall Falls Ferry Field Fields Flat Flats Ford Fords Forest Forge Forges Fork Forks Fort Freeway Garden Gardens Gateway Glen Glens Green Greens Grove Groves Harbor Harbors Haven Heights Highway Hill Hills Hollow Inlet Inlet Island Island Islands Islands Isle Isle Junction Junctions Key Keys Knoll Knolls Lake Lakes Land Landing Lane Light Lights Loaf Lock Locks Locks Lodge Lodge Loop Mall Manor Manors Meadow Meadows Mews Mill Mills Mission Mission Motorway Mount Mountain Mountain Mountains Mountains Neck Orchard Oval Overpass Park Parks Parkway Parkways Pass Passage Path Pike Pine Pines Place Plain Plains Plains Plaza Plaza Point Points Port Port Ports Ports Prairie Prairie Radial Ramp Ranch Rapid Rapids Rest Ridge Ridges River Road Road Roads Roads Route Row Rue Run Shoal Shoals Shore Shores Skyway Spring Springs Springs Spur Spurs Square Square Squares Squares Station Station Stravenue Stravenue Stream Stream Street Street Streets Summit Summit Terrace Throughway Trace Track Trafficway Trail Trail Tunnel Tunnel Turnpike Turnpike Underpass Union Unions Valley Valleys Via Viaduct View Views Village Village  Villages Ville Vista Vista Walk Walks Wall Way Ways Well Wells"
+  #" "))
+
+(defgenerator street-name
+  []
+  ((rand-elt [
+              (fn [] (str (last-name) " " (street-suffix)))
+              (fn [] (str (first-name) " " (street-suffix)))
+             ])))
+
+(defgenerator secondary-address
+  []
+  (-> (rand-elt [
+                 "Apt. ###"
+                 "Suite ###"
+                 ]) numerify))
+
+(defgenerator address-line-1
+  []
+  (-> (rand-elt [
+                 (str "##### " (street-name))
+                 (str "#### " (street-name))
+                 (str "### " (street-name))
+                 ]) numerify))
+
+(defgenerator address-line-2
+  []
+  (-> (rand-elt [
+                 "Apt. ###"
+                 "Suite ###"
+                ]) numerify))
+(defgenerator uk-county
+  ["Avon" "Bedfordshire" "Berkshire" "Borders" "Buckinghamshire" "Cambridgeshire" "Central" "Cheshire" "Cleveland" "Clwyd" "Cornwall" "County Antrim" "County Armagh" "County Down" "County Fermanagh" "County Londonderry" "County Tyrone" "Cumbria" "Derbyshire" "Devon" "Dorset" "Dumfries and Galloway" "Durham" "Dyfed" "East Sussex" "Essex" "Fife" "Gloucestershire" "Grampian" "Greater Manchester" "Gwent" "Gwynedd County" "Hampshire" "Herefordshire" "Hertfordshire" "Highlands and Islands" "Humberside" "Isle of Wight" "Kent" "Lancashire" "Leicestershire" "Lincolnshire" "Lothian" "Merseyside" "Mid Glamorgan" "Norfolk" "North Yorkshire" "Northamptonshire" "Northumberland" "Nottinghamshire" "Oxfordshire" "Powys" "Rutland" "Shropshire" "Somerset" "South Glamorgan" "South Yorkshire" "Staffordshire" "Strathclyde" "Suffolk" "Surrey" "Tayside" "Tyne and Wear" "Warwickshire" "West Glamorgan" "West Midlands" "West Sussex" "West Yorkshire" "Wiltshire" "Worcestershire"])
+
+(defgenerator uk-country
+  ["England" "Scotland" "Wales" "Northern Ireland"])
+
+(defgenerator uk-postcode
+  []
+  (-> (rand-elt ["??# #??" "??## #??"]) bothify (.toUpperCase)))
+
+(defgenerator company-suffix
+  ["Inc" "and Sons" "LLC" "Group"])
+
+(defgenerator company-name
+  []
+  ((rand-elt [
+              (fn [] (str (last-name) " " (company-suffix)))
+              (fn [] (str (last-name) "-" (last-name)))
+              (fn [] (str (last-name) ", " (last-name) " and " (last-name)))
+              ])))
+
+(defgenerator catchy-adjective
+  ["adaptive", "advanced", "ameliorated", "assimilated", "automated", "balanced", "business-focused", "centralized", "cloned", "compatible", "configurable", "cross-group", "cross-platform", "customer-focused", "customizable", "decentralized", "de-engineered", "devolved", "digitized", "distributed", "diverse", "down-sized", "enhanced", "enterprise-wide", "ergonomic", "exclusive", "expanded", "extended", "face to face", "focused", "front-line", "fully-configurable", "function-based", "fundamental", "future-proofed", "grass-roots", "horizontal", "implemented", "innovative", "integrated", "intuitive", "inverse", "managed", "mandatory", "monitored", "multi-channelled", "multi-lateral", "multi-layered", "multi-tiered", "networked", "object-based", "open-architected", "open-source", "operative", "optimized", "optional", "organic", "organized", "persevering", "persistent", "phased", "polarised", "pre-emptive", "proactive", "profit-focused", "profound", "programmable", "progressive", "public-key", "quality-focused", "reactive", "realigned", "re-contextualized", "re-engineered", "reduced", "reverse-engineered", "right-sized", "robust", "seamless", "secured", "self-enabling", "sharable", "stand-alone", "streamlined", "switchable", "synchronised", "synergistic", "synergized", "team-oriented", "total", "triple-buffered", "universal", "up-sized", "upgradable", "user-centric", "user-friendly", "versatile", "virtual", "visionary", "vision-oriented", "24 hour", "24/7", "3rd generation", "4th generation", "5th generation", "6th generation", "actuating", "analyzing", "assymetric", "asynchronous", "attitude-oriented", "background", "bandwidth-monitored", "bi-directional", "bifurcated", "bottom-line", "clear-thinking", "client-driven", "client-server", "coherent", "cohesive", "composite", "context-sensitive", "contextually-based", "content-based", "dedicated", "demand-driven", "didactic", "directional", "discrete", "disintermediate", "dynamic", "eco-centric", "empowering", "encompassing", "even-keeled", "executive", "explicit", "exuding", "fault-tolerant", "foreground", "fresh-thinking", "full-range", "global", "grid-enabled", "heuristic", "high-level", "holistic", "homogeneous", "human-resource", "hybrid", "impactful", "incremental", "intangible", "interactive", "intermediate", "leading edge", "local", "logistical", "maximized", "methodical", "mission-critical", "mobile", "modular", "motivating", "multimedia", "multi-state", "multi-tasking", "national", "needs-based", "neutral", "next generation", "non-volatile", "object-oriented", "optimal", "optimizing", "radical", "real-time", "reciprocal", "regional", "responsive", "scalable", "secondary", "solution-oriented", "stable", "static", "systematic", "systemic", "system-worthy", "tangible", "tertiary", "transitional", "uniform", "upward-trending", "user-facing", "value-added", "web-enabled", "well-modulated", "zero administration", "zero defect", "zero tolerance"])
+
+(defgenerator catchy-noun
+  ["ability", "access", "adapter", "algorithm", "alliance", "analyzer", "application", "approach", "architecture", "archive", "artificial intelligence", "array", "attitude", "benchmark", "budgetary management", "capability", "capacity", "challenge", "circuit", "collaboration", "complexity", "concept", "conglomeration", "contingency", "core", "customer loyalty", "database", "data-warehouse", "definition", "emulation", "encoding", "encryption", "extranet", "firmware", "flexibility", "focus group", "forecast", "frame", "framework", "function", "functionalities", "Graphic Interface", "groupware", "Graphical User Interface", "hardware", "help-desk", "hierarchy", "hub", "implementation", "info-mediaries", "infrastructure", "initiative", "installation", "instruction set", "interface", "internet solution", "intranet", "knowledge user", "knowledge base", "local area network", "leverage", "matrices", "matrix", "methodology", "middleware", "migration", "model", "moderator", "monitoring", "moratorium", "neural-net", "open architecture", "open system", "orchestration", "paradigm", "parallelism", "policy", "portal", "pricing structure", "process improvement", "product", "productivity", "project", "projection", "protocol", "secured line", "service-desk", "software", "solution", "standardization", "strategy", "structure", "success", "superstructure", "support", "synergy", "system engine", "task-force", "throughput", "time-frame", "toolset", "utilisation", "website", "workforce"])
+
+(defgenerator catch-phrase
+  []
+  (s/join " " [(s/capitalize (catchy-adjective)) (catchy-adjective) (catchy-noun)]))
 (defn generator?
   [var]
   (boolean (:generator (meta var))))
@@ -100,3 +162,7 @@
   []
   (doseq [[var result] (test-faker)]
     (println var result)))
+
+(defn test! [sym]
+  (use :reload 'faker)
+  (take 10 (repeatedly (deref (resolve sym)))))
